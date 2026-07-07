@@ -54,7 +54,9 @@ Iterate until the user approves the breakdown.
 
 For each approved slice, publish a new issue to the issue tracker. Use the issue body template below. These issues are considered ready for AFK agents, so publish them with the correct triage label unless instructed otherwise.
 
-Publish issues in dependency order (blockers first) so you can reference real issue identifiers. Where the tracker supports it, link each slice to its parent as a native **sub-issue** and wire each blocker as a native **blocking edge** (mechanics in the issue-tracker doc); the `## Parent` and `## Blocked by` body sections are the fallback otherwise.
+Publish issues in dependency order (blockers first) so you can reference real issue identifiers.
+
+**Link every slice to its parent as a native sub-issue** — do this by default, not only "where convenient". When the source was an existing epic/PRD issue, that issue is the parent: each slice must appear in the parent's native sub-issue list (the "Create sub-issue" relationship), not merely name it in prose. Wire each blocker as a native **blocking edge** the same way. The exact `gh api` mechanics are in the issue-tracker doc. The `## Parent` / `## Blocked by` body sections are a **fallback only**, for trackers without native sub-issues/dependencies.
 
 <issue-template>
 ## Parent
