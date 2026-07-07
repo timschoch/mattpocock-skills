@@ -33,4 +33,4 @@ Once done, use /code-review to review the work.
 
 Commit your work to the current branch.
 
-Close any Chrome tabs you opened this session before creating the PR.
+Close any Chrome tabs you opened during this session before creating the PR.
