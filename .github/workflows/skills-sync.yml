@@ -12,6 +12,7 @@ name: Sync skills from fork
 #
 # It runs `npx skills update` against the CALLER's repo (skills-lock.json),
 # then opens a PR when — and only when — something changed. No diff -> no PR.
+# With auto-merge on (default), the PR is squash-merged as soon as it exists.
 #
 # Requires in each consumer repo: Settings -> Actions -> General ->
 # "Allow GitHub Actions to create and approve pull requests" = enabled.
@@ -27,6 +28,10 @@ on:
         description: Node version used to run the skills CLI
         type: string
         default: "24"
+      auto-merge:
+        description: Squash-merge the sync PR automatically once opened
+        type: boolean
+        default: true
 
 jobs:
   sync:
@@ -35,9 +40,9 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
 
@@ -53,7 +58,8 @@ jobs:
         run: npx skills@latest update -p -y
 
       - name: Open PR if anything changed
-        uses: peter-evans/create-pull-request@v7
+        id: cpr
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: ${{ inputs.branch }}
           delete-branch: true
@@ -65,3 +71,16 @@ jobs:
             Only `.agents/skills/**` and `skills-lock.json` change. This PR is opened
             only when the update produced a diff; if the branch already exists it is
             updated in place rather than opening a second PR.
+
+      - name: Auto-merge the sync PR
+        if: >-
+          inputs.auto-merge &&
+          (steps.cpr.outputs.pull-request-operation == 'created' ||
+           steps.cpr.outputs.pull-request-operation == 'updated')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        # Prefer native auto-merge (waits for required checks on protected repos);
+        # fall back to an immediate squash-merge where auto-merge isn't available
+        # (e.g. Free-plan private repos, which also have no checks to wait on).
+        run: gh pr merge "$PR" --squash --delete-branch --auto || gh pr merge "$PR" --squash --delete-branch
