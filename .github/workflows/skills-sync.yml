@@ -80,7 +80,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ steps.cpr.outputs.pull-request-number }}
-        # Prefer native auto-merge (waits for required checks on protected repos);
-        # fall back to an immediate squash-merge where auto-merge isn't available
-        # (e.g. Free-plan private repos, which also have no checks to wait on).
-        run: gh pr merge "$PR" --squash --delete-branch --auto || gh pr merge "$PR" --squash --delete-branch
+        # Prefer native auto-merge (waits for required checks on protected repos).
+        # Fall back to an admin squash-merge where auto-merge isn't available
+        # (e.g. Free-plan private repos): --admin calls the REST merge directly so
+        # a still-pending NON-required check (e.g. a Vercel preview) doesn't block it.
+        run: gh pr merge "$PR" --squash --delete-branch --auto || gh pr merge "$PR" --squash --delete-branch --admin
