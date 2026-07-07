@@ -10,6 +10,27 @@
 
 > **Fork** of [`mattpocock/skills`](https://github.com/mattpocock/skills) with local tweaks — install this one instead: `npx skills add timschoch/mattpocock-skills`
 
+
+## Keep a repo's skills auto-synced
+
+Keep a repo's pinned skills up to date with this fork automatically. In the consuming repo, add `.github/workflows/skills-sync.yml`:
+
+```yaml
+name: Sync skills
+on:
+  schedule: [{ cron: "0 6 * * *" }] # daily
+  workflow_dispatch:
+jobs:
+  sync:
+    uses: timschoch/mattpocock-skills/.github/workflows/skills-sync.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+    secrets: inherit
+```
+
+Then enable **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**. A daily run (or manual dispatch) runs `npx skills update` and opens a PR only when something changed — squash-merged automatically by default. Pass `auto-merge: false` to the workflow to review PRs by hand instead.
+
 # Skills For Real Engineers
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
