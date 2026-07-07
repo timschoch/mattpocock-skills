@@ -1,0 +1,59 @@
+name: Sync skills from fork
+
+# Reusable workflow. Consumer repos call it from their own scheduled workflow:
+#
+#   jobs:
+#     sync:
+#       uses: timschoch/mattpocock-skills/.github/workflows/skills-sync.yml@main
+#       permissions:
+#         contents: write
+#         pull-requests: write
+#       secrets: inherit
+#
+# It runs `npx skills update` against the CALLER's repo (skills-lock.json),
+# then opens a PR when — and only when — something changed. No diff -> no PR.
+#
+# Requires in each consumer repo: Settings -> Actions -> General ->
+# "Allow GitHub Actions to create and approve pull requests" = enabled.
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: Branch the sync PR is opened from
+        type: string
+        default: chore/sync-skills
+      node-version:
+        description: Node version used to run the skills CLI
+        type: string
+        default: "24"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Update pinned skills
+        run: npx skills@latest update -p -y
+
+      - name: Open PR if anything changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: ${{ inputs.branch }}
+          delete-branch: true
+          commit-message: "chore(skills): sync skills from fork"
+          title: "chore(skills): sync skills from fork"
+          body: |
+            Automated `npx skills update` — pulls the latest pinned skills from the fork.
+
+            Only `.agents/skills/**` and `skills-lock.json` change. This PR is opened
+            only when the update produced a diff; if the branch already exists it is
+            updated in place rather than opening a second PR.
