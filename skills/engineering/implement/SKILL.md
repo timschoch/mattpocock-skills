@@ -21,13 +21,9 @@ gh issue comment N --body "🤖 in-progress — <branch> (<session>) <date>"
 
 Idempotent: re-running `/implement` on the same issue must not error — adding a present label, dropping an absent `ready-for-agent`, and re-commenting are all tolerated. The claim comment must name the working branch (a colliding agent inspects that branch's state, not a lingering worktree).
 
-Then rename this session to the claimed issue so parallel sessions stay distinguishable: `/rename #N <short issue title>`.
-
 ## Release the claim
 
 When you open the PR (work handed to review), release the claim: `gh issue edit N --remove-label in-progress`. If the flow ends without opening a PR, leave the label — the `cleanup-merged-branches` reaper releases abandoned claims. Do not restore `ready-for-agent` on success; the issue closes on merge.
-
-Also rename the session back to a neutral placeholder, so the freed session no longer advertises the issue: `/rename waiting for work...`.
 
 Use /tdd where possible, at pre-agreed seams.
 
