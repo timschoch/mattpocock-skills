@@ -41,6 +41,14 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
 
+      - name: Mark Claude Code as an installed agent
+        # `skills update` writes to the shared `.agents/skills` store only when it
+        # detects an installed agent, which it does by probing `$HOME/.claude` etc.
+        # A bare CI runner has none, so it falls back to Eve's `agent/skills` dir
+        # and opens a bogus duplicate-tree PR. Seeding `$HOME/.claude` makes it
+        # resolve the same universal store this repo actually uses.
+        run: mkdir -p "$HOME/.claude"
+
       - name: Update pinned skills
         run: npx skills@latest update -p -y
 
