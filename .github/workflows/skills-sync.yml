@@ -25,6 +25,13 @@ name: Sync skills from fork
 
 on:
   workflow_call:
+    secrets:
+      LEMY_SKILLS_SYNC_TOKEN:
+        description: >-
+          Token the skills CLI uses to read private skill sources (fine-grained
+          PAT, Contents: read). Optional — public sources work with the default
+          github.token. Passed via `secrets: inherit` or explicitly.
+        required: false
     inputs:
       branch:
         description: Branch the sync PR is opened from
