@@ -19,7 +19,7 @@ name: Sync skills from fork
 #
 # Private skill sources: the runner's github.token only reads the caller repo.
 # If skills-lock.json pins skills from a PRIVATE repo, add a repo secret
-# SKILLS_SYNC_TOKEN (fine-grained PAT, Contents: read on the source repo) in
+# LEMY_SKILLS_SYNC_TOKEN (fine-grained PAT, Contents: read on the source repo) in
 # the consumer repo — `secrets: inherit` passes it through and the skills CLI
 # picks it up as GITHUB_TOKEN below. Without it, private sources 404.
 
@@ -62,7 +62,7 @@ jobs:
 
       - name: Update pinned skills
         env:
-          GITHUB_TOKEN: ${{ secrets.SKILLS_SYNC_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ secrets.LEMY_SKILLS_SYNC_TOKEN || github.token }}
         run: npx skills@latest update -p -y
 
       - name: Open PR if anything changed
