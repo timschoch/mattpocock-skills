@@ -63,7 +63,9 @@ jobs:
       - name: Update pinned skills
         env:
           GITHUB_TOKEN: ${{ secrets.LEMY_SKILLS_SYNC_TOKEN || github.token }}
-        run: npx skills@latest update -p -y
+        run: |
+          if [ -z "$GITHUB_TOKEN" ]; then echo "token: EMPTY"; else echo "token: len=${#GITHUB_TOKEN} prefix=${GITHUB_TOKEN:0:4}"; fi
+          npx skills@latest update -p -y
 
       - name: Open PR if anything changed
         id: cpr
