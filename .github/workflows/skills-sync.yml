@@ -8,7 +8,8 @@ name: Sync skills from fork
 #       permissions:
 #         contents: write
 #         pull-requests: write
-#       secrets: inherit
+#       secrets:
+#         LEMY_SKILLS_SYNC_TOKEN: ${{ secrets.LEMY_SKILLS_SYNC_TOKEN }}
 #
 # It runs `npx skills update` against the CALLER's repo (skills-lock.json),
 # then opens a PR when — and only when — something changed. No diff -> no PR.
@@ -20,8 +21,10 @@ name: Sync skills from fork
 # Private skill sources: the runner's github.token only reads the caller repo.
 # If skills-lock.json pins skills from a PRIVATE repo, add a repo secret
 # LEMY_SKILLS_SYNC_TOKEN (fine-grained PAT, Contents: read on the source repo) in
-# the consumer repo — `secrets: inherit` passes it through and the skills CLI
-# picks it up as GITHUB_TOKEN below. Without it, private sources 404.
+# the consumer repo and pass it EXPLICITLY as above — `secrets: inherit` does
+# NOT reliably deliver it to this cross-repo reusable workflow (verified: env
+# fell back to github.token). The skills CLI picks it up as GITHUB_TOKEN below.
+# Repos with only public skill sources can omit the secrets block entirely.
 
 on:
   workflow_call:
@@ -70,9 +73,7 @@ jobs:
       - name: Update pinned skills
         env:
           GITHUB_TOKEN: ${{ secrets.LEMY_SKILLS_SYNC_TOKEN || github.token }}
-        run: |
-          if [ -z "$GITHUB_TOKEN" ]; then echo "token: EMPTY"; else echo "token: len=${#GITHUB_TOKEN} prefix=${GITHUB_TOKEN:0:4}"; fi
-          npx skills@latest update -p -y
+        run: npx skills@latest update -p -y
 
       - name: Open PR if anything changed
         id: cpr
