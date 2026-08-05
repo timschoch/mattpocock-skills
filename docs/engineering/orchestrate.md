@@ -10,8 +10,6 @@ npx skills add timschoch/mattpocock-skills --skill=orchestrate
 npx skills update orchestrate
 ```
 
-[Source](https://github.com/timschoch/mattpocock-skills/tree/main/skills/engineering/orchestrate)
-
 ## What it does
 
 `orchestrate` runs an already-specced, already-ticketed feature to completion across parallel [implement](https://aihero.dev/skills-implement) agents, one per sub-issue, each on its own git worktree — and does the mechanical tail itself: sequencing, relay, merge order, CI watch, cleanup.
@@ -43,6 +41,17 @@ Questions don't block: they go on the issue and the run proceeds wherever a tole
 ## Idle is not done
 
 The failure mode this skill is built against: an agent goes quiet and you read that as finished. Before acting on any "finished" signal, the orchestrator verifies **observable state** — the branch on origin, `git diff --stat`, the fix actually present in the diff rather than merely acknowledged. Sequence-sensitive rules (rebase-before-PR, conflict posture, merge order) go into an agent's *original* prompt, because a mid-flight message crosses with its push and lands too late to matter.
+
+## Common questions
+
+**The parent issue has sub-issues, but `gh issue view` doesn't show them.**
+It never does — `gh issue view` doesn't render the sub-issue relationship at all. They are only reachable over GraphQL (`gh api graphql … subIssues`). Absence from CLI output is not evidence the links are missing, and the distinction matters: missing sub-issues is a stop-and-ask, so a wrong read here halts a run that was fine.
+
+**Two tickets touch the same file. Do I have to run them serially?**
+Not necessarily, but the call is made at sequencing time, before anything spawns. Shared-file hotspots get either serialized or a pre-agreed conflict posture written into both prompts — "keep shared-file changes additive; second-to-merge rebases". "New files only" parallelizes; "touches shared files" wants a single writer. Deciding it after spawning is too late: a mid-flight message crosses with the agent's push.
+
+**A run got binned halfway. Do I restart from scratch?**
+No. Archive the branch as `archive/<issue>-<label>` and restart along the same sub-issues with fresh claims, giving each affected prompt the mandatory diff-against-the-archive step. "May consult the archive" is too weak — without the diff step, agents reintroduce bugs the binned run had already fixed.
 
 ## It's working if
 
