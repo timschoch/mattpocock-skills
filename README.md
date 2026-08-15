@@ -222,7 +222,6 @@ Skills I use daily for code work.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)** — Turn the current conversation into a spec and publish it to the issue tracker. No interview — just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** — Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges — written as text in a local file, or as native blocking links on a real tracker.
 - **[implement](./skills/engineering/implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
-- **[orchestrate](./skills/engineering/orchestrate/SKILL.md)** — **(fork-only, not in upstream)** Run an already-ticketed feature across parallel `/implement` agents, one per sub-issue on its own worktree, and own the mechanical tail: sequencing, relay, merge order, cleanup.
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)** — Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker — resolve them one at a time until the way to the destination is clear.
 
 **Model-invoked**
@@ -253,3 +252,13 @@ General workflow tools, not code-specific.
 
 - **[grilling](./skills/productivity/grilling/SKILL.md)** — Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder` and `improve-codebase-architecture`.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** — Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
+
+### Fork
+
+Written in this fork, not in upstream.
+
+**User-invoked**
+
+- **[orchestrate](./skills/fork/orchestrate/SKILL.md)** — Run an already-ticketed feature across parallel `/implement` agents, one per sub-issue on its own worktree, and own the mechanical tail: sequencing, relay, merge order, cleanup.
+- **[step-by-step](./skills/fork/step-by-step/SKILL.md)** — Get walked through a manual procedure you haven't done before — creating a PAT, pointing a domain, wiring a CI secret — as one numbered block with every value spelled out and every link clickable.
+- **[cleanup-merged-branches](./skills/fork/cleanup-merged-branches/SKILL.md)** — Delete remote branches whose PR was merged — read-only dry-run, then confirm, then delete.
