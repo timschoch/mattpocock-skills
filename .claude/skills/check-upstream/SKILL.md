@@ -25,7 +25,7 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
 
 3. **Gate.** Show the verdicts, the conflict list, and the recommendation, then ask for explicit go. Merge only on a clear yes.
 
-4. **Merge.** Record `git rev-parse HEAD` — step 6 needs this pre-merge sha. Branch off the current branch as `sync/upstream-$(date +%Y-%m-%d)`, then `git merge upstream/main`.
+4. **Merge.** Branch off the fork's default branch — `git switch -c sync/upstream-$(date +%Y-%m-%d) main` — so whatever branch you were working on stays out of the sync PR. Record that base's sha (`git rev-parse main`); step 6 needs it. Then `git merge upstream/main`.
 
 5. **Resolve.** Every conflict falls into one class:
 
@@ -36,6 +36,6 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
 
 6. **Verify.** `bash .claude/skills/check-upstream/scripts/verify.sh <pre-merge sha>` — every fork-only path still byte-identical, every fork-only skill still named in each index file that named it. Then `claude plugin validate . --strict`. Done when both pass. Whatever verify.sh flags is either restored or explained to the user as a deliberate resolution.
 
-   Run it from a branch that carries this skill: when the sync branch does not, extract the scripts first (`git archive <branch> .claude/skills/check-upstream | tar -x -C .temp/`) and run them from there.
+   The sync branch carries these scripts, since it branches off the default branch. While this skill still sits on an unmerged branch, extract them first — `git archive <branch> .claude/skills/check-upstream | tar -x -C .temp/` — and run that copy.
 
-7. **PR.** `gh pr create` against the branch you branched from in step 4. Body: the merged range, each resolution you made, and whatever still needs the user's eye. Report the URL.
+7. **PR.** `gh pr create --repo <fork> --base <default branch>`. Name the fork explicitly: on a fork, `gh` aims at the upstream parent by default, which fails as `does not have the correct permissions to execute CreatePullRequest`. Body: the merged range, each resolution you made, and whatever still needs the user's eye. Report the URL.
