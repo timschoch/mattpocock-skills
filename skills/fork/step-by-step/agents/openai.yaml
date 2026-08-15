@@ -1,0 +1,5 @@
+interface:
+  display_name: "Step By Step"
+  short_description: "Get walked through a manual procedure"
+policy:
+  allow_implicit_invocation: false

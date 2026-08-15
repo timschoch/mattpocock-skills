@@ -30,7 +30,6 @@
     "./skills/engineering/to-tickets",
     "./skills/engineering/wayfinder",
     "./skills/engineering/implement",
-    "./skills/engineering/orchestrate",
     "./skills/engineering/prototype",
     "./skills/engineering/research",
     "./skills/engineering/domain-modeling",
@@ -44,6 +43,9 @@
     "./skills/productivity/teach",
     "./skills/productivity/to-questionnaire",
     "./skills/productivity/wait-what",
-    "./skills/productivity/writing-for-agents"
+    "./skills/productivity/writing-for-agents",
+    "./skills/fork/orchestrate",
+    "./skills/fork/step-by-step",
+    "./skills/fork/cleanup-merged-branches"
   ]
 }
