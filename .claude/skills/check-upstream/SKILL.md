@@ -34,6 +34,8 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
    - **`.changeset/`** — keep both sides' entries.
    - **Shared skills the fork edited** — apply upstream's edit around the fork's behaviour. When the two genuinely contradict, stop and ask the user which wins.
 
-6. **Verify.** `bash .claude/skills/check-upstream/scripts/verify.sh <pre-merge sha>`, then `claude plugin validate . --strict`. Done when both pass. A path verify.sh flags is either restored or explained to the user as a deliberate resolution.
+6. **Verify.** `bash .claude/skills/check-upstream/scripts/verify.sh <pre-merge sha>` — every fork-only path still byte-identical, every fork-only skill still named in each index file that named it. Then `claude plugin validate . --strict`. Done when both pass. Whatever verify.sh flags is either restored or explained to the user as a deliberate resolution.
+
+   Run it from a branch that carries this skill: when the sync branch does not, extract the scripts first (`git archive <branch> .claude/skills/check-upstream | tar -x -C .temp/`) and run them from there.
 
 7. **PR.** `gh pr create` against the branch you branched from in step 4. Body: the merged range, each resolution you made, and whatever still needs the user's eye. Report the URL.
