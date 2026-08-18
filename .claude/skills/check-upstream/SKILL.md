@@ -29,7 +29,7 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
 
 5. **Resolve.** Every conflict falls into one class:
 
-   - **Index files** — `README.md`, `skills/*/README.md`, `.claude-plugin/plugin.json`, `skills/engineering/ask-matt/SKILL.md`. Resolve as a **union**: every upstream entry and every fork-only entry survives, fork-only ones keeping their `(fork-only, not in upstream)` marker.
+   - **Index files** — `README.md`, `skills/*/README.md`, `.claude-plugin/plugin.json`, `skills/engineering/ask-matt/SKILL.md`. Resolve as a **union**: every upstream entry and every fork-only entry survives. Fork-authored skills live in `skills/fork/`, listed in `skills/fork/README.md` and under the top-level `README.md`'s **Fork** heading — a block upstream never writes to, so a conflict there is a merge artefact, not a real edit. Take the fork's side of that block whole.
    - **Version files** — `package.json`, the `version` field in `.claude-plugin/plugin.json`, `CHANGELOG.md`. Take upstream's side whole.
    - **`.changeset/`** — keep both sides' entries.
    - **Shared skills the fork edited** — apply upstream's edit around the fork's behaviour. When the two genuinely contradict, stop and ask the user which wins.
