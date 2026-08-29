@@ -10,30 +10,45 @@ name: Sync skills from fork
 #         pull-requests: write
 #       secrets:
 #         LEMY_SKILLS_SYNC_TOKEN: ${{ secrets.LEMY_SKILLS_SYNC_TOKEN }}
+#         SKILLS_SYNC_PR_TOKEN: ${{ secrets.SKILLS_SYNC_PR_TOKEN }}
 #
 # It runs `npx skills update` against the CALLER's repo (skills-lock.json),
 # then opens a PR when — and only when — something changed. No diff -> no PR.
 # With auto-merge on (default), the PR is squash-merged as soon as it exists.
 #
-# Requires in each consumer repo: Settings -> Actions -> General ->
-# "Allow GitHub Actions to create and approve pull requests" = enabled.
+# Two tokens, two different jobs. Both optional. `secrets: inherit` does NOT
+# deliver either to this cross-repo reusable workflow, so pass them EXPLICITLY
+# as above (verified: env fell back to github.token).
 #
-# Private skill sources: the runner's github.token only reads the caller repo.
-# If skills-lock.json pins skills from a PRIVATE repo, add a repo secret
-# LEMY_SKILLS_SYNC_TOKEN (fine-grained PAT, Contents: read on the source repo) in
-# the consumer repo and pass it EXPLICITLY as above — `secrets: inherit` does
-# NOT reliably deliver it to this cross-repo reusable workflow (verified: env
-# fell back to github.token). The skills CLI picks it up as GITHUB_TOKEN below.
-# Repos with only public skill sources can omit the secrets block entirely.
+# LEMY_SKILLS_SYNC_TOKEN READS the skill sources. The runner's github.token
+# reads only the caller repo, so a source pinned from a PRIVATE repo needs a
+# fine-grained PAT with Contents: read on that source. This one token reads
+# every pinned source, and a fine-grained PAT reads public ones by default.
+# Omit it where every source is public.
+#
+# SKILLS_SYNC_PR_TOKEN OPENS the PR. Without it the PR is GITHUB_TOKEN's, and
+# GitHub parks that PR's own workflow runs as `action_required` instead of
+# running them. Where a required status check gates the base branch, the check
+# never reports and auto-merge waits forever. A fine-grained PAT with Contents:
+# write and Pull requests: write on the CONSUMER repo makes the PR a user's, so
+# its checks run and auto-merge fires. Omit it only where no required check
+# gates the base branch, and there enable Settings -> Actions -> General ->
+# "Allow GitHub Actions to create and approve pull requests" instead.
 
 on:
   workflow_call:
     secrets:
       LEMY_SKILLS_SYNC_TOKEN:
         description: >-
-          Token the skills CLI uses to read private skill sources (fine-grained
-          PAT, Contents: read). Optional — public sources work with the default
-          github.token. Passed via `secrets: inherit` or explicitly.
+          Token the skills CLI reads private skill sources with (fine-grained
+          PAT, Contents: read on each private source). Optional, public sources
+          work with the default github.token.
+        required: false
+      SKILLS_SYNC_PR_TOKEN:
+        description: >-
+          Token that opens the sync PR (fine-grained PAT, Contents: write and
+          Pull requests: write on the consumer repo). Optional, but without it
+          the PR is GITHUB_TOKEN's and its checks are parked action_required.
         required: false
     inputs:
       branch:
@@ -79,6 +94,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.SKILLS_SYNC_PR_TOKEN || github.token }}
           branch: ${{ inputs.branch }}
           delete-branch: true
           commit-message: "chore(skills): sync skills from fork"
@@ -96,7 +112,7 @@ jobs:
           (steps.cpr.outputs.pull-request-operation == 'created' ||
            steps.cpr.outputs.pull-request-operation == 'updated')
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SKILLS_SYNC_PR_TOKEN || github.token }}
           PR: ${{ steps.cpr.outputs.pull-request-number }}
         # Prefer native auto-merge (waits for required checks on protected repos).
         # Fall back to an admin squash-merge where auto-merge isn't available
