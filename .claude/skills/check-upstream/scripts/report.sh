@@ -30,6 +30,23 @@ echo "## Files upstream changed"
 git diff --stat "$B" "$U"
 
 echo
+echo "## Files upstream deleted"
+# --stat above shows a deletion as a pile of removed lines, and the merge preview
+# names only conflicting paths, so a deletion the fork never touched is invisible.
+gone=0
+while IFS= read -r p; do
+  [ -n "$p" ] || continue
+  git cat-file -e "HEAD:$p" 2>/dev/null || continue
+  gone=1
+  if [ "$(git rev-parse "$B:$p")" != "$(git rev-parse "HEAD:$p")" ]; then
+    echo "  $p  — fork edited it: modify/delete conflict, keep or drop is a decision"
+  else
+    echo "  $p  — merge removes it"
+  fi
+done < <(fork_only_paths "$B" "$U")
+[ "$gone" -eq 1 ] || echo "  none the fork still carries"
+
+echo
 echo "## Release state"
 echo "version: local $(pkg_version HEAD) -> upstream $(pkg_version "$U")"
 REL="$(git log --format=%H -1 --grep='^chore: version skills' "$U")"
