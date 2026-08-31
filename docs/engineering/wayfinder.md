@@ -39,7 +39,7 @@ Four things live on it:
 
 The **frontier** is the open, unblocked, unclaimed tickets (the edge of the known). A session claims a ticket by assigning it to itself before doing any work, so the assignee *is* the claim and concurrent sessions skip it. Tickets are referred to by name throughout, never by a bare `#42`; a wall of issue numbers is illegible in narration.
 
-Blocking isn't the only edge that matters. Trackers give you parent/child and blocked-by, but not the softer link where one map or ticket intentionally hangs on another's outcome without waiting for it. That one gets declared in the body — "Related: #n — why" — and the *why* is written once, by the session that has the context, rather than guessed at months later by whoever finds the two side by side.
+Blocking isn't the only edge that matters. Trackers give you parent/child and blocked-by, but not the softer link where one map or ticket intentionally hangs on another's outcome without waiting for it. That one gets declared in the body as "Related: #n (why)", and the *why* is written once, by the session that has the context, rather than guessed at months later by whoever finds the two side by side.
 
 ## The four decision-ticket types
 

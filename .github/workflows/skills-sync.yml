@@ -13,7 +13,7 @@ name: Sync skills from fork
 #         SKILLS_SYNC_PR_TOKEN: ${{ secrets.SKILLS_SYNC_PR_TOKEN }}
 #
 # It runs `npx skills update` against the CALLER's repo (skills-lock.json),
-# then opens a PR when — and only when — something changed. No diff -> no PR.
+# then opens a PR when, and only when, something changed. No diff -> no PR.
 # With auto-merge on (default), the PR is squash-merged as soon as it exists.
 #
 # Two tokens, two different jobs. Both optional. `secrets: inherit` does NOT
@@ -100,7 +100,7 @@ jobs:
           commit-message: "chore(skills): sync skills from fork"
           title: "chore(skills): sync skills from fork"
           body: |
-            Automated `npx skills update` — pulls the latest pinned skills from the fork.
+            Automated `npx skills update`. Pulls the latest pinned skills from the fork.
 
             Only `.agents/skills/**` and `skills-lock.json` change. This PR is opened
             only when the update produced a diff; if the branch already exists it is

@@ -42,6 +42,6 @@ while IFS= read -r name; do
 done < <(fork_only_paths "$PRE" "$U" | sed -n 's|^skills/[^/]*/\([^/]*\)/SKILL.md$|\1|p')
 
 if [ "$drift" -eq 0 ]; then
-  echo "ok — every fork-only path intact, every fork-only skill still indexed"
+  echo "ok: every fork-only path intact, every fork-only skill still indexed"
 fi
 exit "$drift"
