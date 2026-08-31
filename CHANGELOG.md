@@ -1,25 +1,5 @@
 # mattpocock-skills
 
-## 1.3.0
-
-### Minor Changes
-
-- [#14](https://github.com/timschoch/mattpocock-skills/pull/14) [`2eb4016`](https://github.com/timschoch/mattpocock-skills/commit/2eb4016113b173437c746cc444a07c07cb340b4d) Thanks [@timschoch](https://github.com/timschoch)! - Add a `fork/` bucket for skills written in this fork, and a new **`step-by-step`** skill in it.
-
-  - `fork/` is promoted — it ships in the plugin and carries its own `README.md` — but it sits outside upstream's index files, so an upstream merge has no fork entries interleaved in `skills/engineering/README.md` or the Engineering list in the top-level `README.md` to trample. Docs pages are optional there, since nothing in the bucket is published on aihero.dev.
-  - Move `orchestrate` (from `engineering/`) and `cleanup-merged-branches` (from `misc/`) into it. `cleanup-merged-branches` now ships in the plugin, which it did not while it sat in the non-promoted `misc/`.
-  - **`step-by-step`** walks the user through a manual procedure they have not done before — creating a PAT, pointing a domain, wiring a CI secret. It does the terminal half itself, then hands over one numbered block: literal values in every field, a full deep URL per step, the trap named in the step it bites, a test as the last step. Past ~30 steps it splits into parts, cut on checkable seams rather than on the count, one part per message. Secrets get their own step naming the exact destination, and the block says in words not to paste the value into the chat. User-invoked, because the agent cannot tell which procedures are new to the person asking.
-
-### Patch Changes
-
-- [#848](https://github.com/mattpocock/skills/pull/848) [`f02e2ed`](https://github.com/timschoch/mattpocock-skills/commit/f02e2ed3624d031272f8547742d23bf6bca8b072) Thanks [@mattpocock](https://github.com/mattpocock)! - domain-modeling: trigger on discussing codebase terminology and on writing or editing a CONTEXT.md or an ADR directly, replacing the narrower "pin down domain terminology or a ubiquitous language" / "record an architectural decision" phrasing. Also drops the "another skill needs to maintain the domain model" caveat — that's the invoking skill's job to state explicitly, not this description's.
-
-- [#10](https://github.com/timschoch/mattpocock-skills/pull/10) [`6b23ea3`](https://github.com/timschoch/mattpocock-skills/commit/6b23ea3ff118099d300fc41f77703844f5550cca) Thanks [@timschoch](https://github.com/timschoch)! - Give `/wayfinder` a way to record **intentional relatedness** between maps and tickets.
-
-  Trackers offer parent/child and blocked-by, so the softer edge — where a map or ticket deliberately hangs on another's outcome without being blocked by it — had nowhere to live and was lost. Wayfinder now declares it in the body as a `Related:` line naming the other issue and _why_, written once by the session that has the context rather than inferred later by whoever finds the two side by side. It never gates the frontier.
-
-  The three issue-tracker templates say how each expresses it — GitHub has no native relationship, GitLab's `/relate` may mirror it in the UI but the body line stays the record, local-markdown puts it beside `Blocked by` — and the docs page is re-synced.
-
 ## 1.2.3
 
 ### Patch Changes

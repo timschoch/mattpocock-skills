@@ -1,2 +1,6 @@
 node_modules
 .temp
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/check-upstream/
