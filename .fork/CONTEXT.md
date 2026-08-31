@@ -12,7 +12,7 @@ _Avoid_: origin (that is the fork), Matt's repo
 [timschoch/mattpocock-skills](https://github.com/timschoch/mattpocock-skills), the `origin` remote and this working copy.
 
 **Fork-only path**:
-A path that exists in the fork and not in **Upstream** — computed, never listed by hand, as `fork_only_paths` in `.claude/skills/check-upstream/scripts/lib.sh`. `check-upstream` requires every one to survive a sync byte-identical.
+A path that exists in the fork and not in **Upstream**. Computed, never listed by hand, as `fork_only_paths` in `.claude/skills/check-upstream/scripts/lib.sh`. `check-upstream` requires every one to survive a sync byte-identical.
 
 **Fork edit**:
 A change to a file the fork shares with **Upstream**. This is what the fork is actually for, and the whole conflict surface of a sync. Derivable as `git diff --diff-filter=M --name-only "$(git merge-base HEAD upstream/main)" HEAD`.

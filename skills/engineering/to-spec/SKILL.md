@@ -18,7 +18,7 @@ Check with the user that these seams match their expectations.
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
 
-   If this spec refines an existing parent issue (e.g. the conversation started from an epic, or the user passed its reference), link the published spec as a native **sub-issue** of that parent using the mechanics in the issue-tracker doc — so it appears in the parent's sub-issue list, not merely named in prose.
+   If this spec refines an existing parent issue (e.g. the conversation started from an epic, or the user passed its reference), link the published spec as a native **sub-issue** of that parent using the mechanics in the issue-tracker doc, so it appears in the parent's sub-issue list rather than merely named in prose.
 
 <spec-template>
 

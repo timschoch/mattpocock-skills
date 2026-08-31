@@ -8,7 +8,7 @@
   </a>
 </p>
 
-> **Fork** of [`mattpocock/skills`](https://github.com/mattpocock/skills) with local tweaks — install this one instead: `npx skills add timschoch/mattpocock-skills`
+> **Fork** of [`mattpocock/skills`](https://github.com/mattpocock/skills) with local tweaks. Install this one instead: `npx skills add timschoch/mattpocock-skills`
 
 # Skills For Real Engineers
 

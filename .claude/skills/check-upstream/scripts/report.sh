@@ -39,9 +39,9 @@ while IFS= read -r p; do
   git cat-file -e "HEAD:$p" 2>/dev/null || continue
   gone=1
   if [ "$(git rev-parse "$B:$p")" != "$(git rev-parse "HEAD:$p")" ]; then
-    echo "  $p  — fork edited it: modify/delete conflict, keep or drop is a decision"
+    echo "  $p  (fork edited it: modify/delete conflict, keep or drop is a decision)"
   else
-    echo "  $p  — merge removes it"
+    echo "  $p  (merge removes it)"
   fi
 done < <(fork_only_paths "$B" "$U")
 [ "$gone" -eq 1 ] || echo "  none the fork still carries"
@@ -57,7 +57,7 @@ if [ -n "$REL" ]; then
     echo "unreleased tail (ships in the next version):"
     echo "$TAIL" | sed 's/^/  /'
   else
-    echo "unreleased tail: none — every upstream commit is released"
+    echo "unreleased tail: none, every upstream commit is released"
   fi
 else
   echo "last release commit: none found"
@@ -78,7 +78,7 @@ echo
 echo "## Merge preview"
 MT="$(git merge-tree --write-tree --name-only HEAD "$U")"; MT_RC=$?
 if [ "$MT_RC" -eq 0 ]; then
-  echo "clean — no conflicts"
+  echo "clean: no conflicts"
 else
   echo "conflicts in:"
   echo "$MT" | sed -n '2,/^$/p' | sed '/^$/d' | sed 's/^/  /'

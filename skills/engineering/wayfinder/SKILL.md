@@ -68,7 +68,7 @@ A session **claims** a ticket by assigning it to the dev driving the map, **firs
 
 Blocking uses the tracker's **native** dependency relationship: essential because it renders the frontier _visually_ in the tracker's own UI, so the human sees what's takeable without opening the map. Only a tracker that lacks native blocking falls back to a body convention. A ticket is **unblocked** when every ticket blocking it is closed; the **frontier** is the open, unblocked, unclaimed children, the edge of the known.
 
-- **Related**: where a map or ticket intentionally hangs on another's outcome without being blocked by it, declare it in the body as "Related: #n — why". The why is written once, by the session that has the context, and never inferred later.
+- **Related**: where a map or ticket intentionally hangs on another's outcome without being blocked by it, declare it in the body as "Related: #n (why)". The why is written once, by the session that has the context, and never inferred later.
 
 The answer isn't part of the body; it's recorded on resolution (see [Work through the map](#work-through-the-map)). Assets created while resolving a ticket are linked from the issue, not pasted in.
 

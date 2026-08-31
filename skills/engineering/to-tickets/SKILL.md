@@ -66,6 +66,8 @@ Work the **frontier**: any ticket whose blockers are all done. For a purely line
 
 Do NOT close or modify any parent issue.
 
+Linking a ticket under its parent as a native sub-issue (above) is not "modifying" the parent; it is the point.
+
 <local-ticket-template>
 
 # <NN>: <Ticket title>
