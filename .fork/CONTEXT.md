@@ -19,7 +19,7 @@ A change to a file the fork shares with **Upstream**. This is what the fork is a
 _Avoid_: patch, customisation, override
 
 **Sync**:
-One run of `check-upstream`: merge **Upstream** into the fork, resolve, verify, open a PR. Distinct from the `skills-sync` workflow, which pushes *from* this fork to consumers.
+One run of `check-upstream`: merge **Upstream** into the fork, resolve, verify, open a PR. Distribution *from* this fork to consumers is [skilly](https://github.com/timschoch/skilly)'s job, not this repo's.
 
 ## Relationships
 
