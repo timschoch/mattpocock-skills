@@ -2,12 +2,12 @@
 
 Everything in here is written by the fork ([timschoch/mattpocock-skills](https://github.com/timschoch/mattpocock-skills)) and never by upstream ([mattpocock/skills](https://github.com/mattpocock/skills)). Upstream has no `.fork/`, so nothing in this directory can ever conflict on a sync, and `check-upstream`'s "fork-only paths must survive the merge" check covers it by construction.
 
-Do **not** put fork material in `.agents/adr/` or extend the top-level `CONTEXT.md`. Those are upstream's: our next ADR number and Matt's next ADR number are the same number, and the top-level glossary is his vocabulary.
+Do **not** put fork material in `.agents/adr/` or extend the top-level `GLOSSARY.md`. Those are upstream's: our next ADR number and Matt's next ADR number are the same number, and the top-level glossary is his vocabulary.
 
 | Path | Holds |
 | --- | --- |
 | `adr/` | Fork ADRs, own numbering, independent of `.agents/adr/` |
-| `CONTEXT.md` | Fork-only vocabulary; upstream's `CONTEXT.md` stays upstream's |
+| `CONTEXT.md` | Fork-only vocabulary; upstream's `GLOSSARY.md` stays upstream's |
 
 `check-upstream` itself stays at `.claude/skills/check-upstream/`, where the harness looks for it. `.fork/` is documentation, not code.
 

@@ -14,7 +14,7 @@ Each mention is marked **"(installed separately)"**, so a reader who somehow has
 
 ## What the routes say
 
-- **`/orchestrate`**, in step 3 of the main flow, is the parallel alternative to running `/implement` per ticket by hand. The added sub-bullet answers "serial or parallel?": `/implement` per ticket is the default and the only option on a local tracker; `/orchestrate` takes a parent issue whose sub-issues are genuinely independent, spawns one `/implement` agent per sub-issue on its own worktree, and owns the mechanical tail. It never re-slices the work. This is the payoff of [0001](./0001-native-sub-issue-links-for-specs-and-tickets.md): native sub-issues are what make the packages addressable, so `/orchestrate` needs GitHub, not local files.
+- **`/orchestrate`**, in step 3 of the main flow, is a parallel alternative to running `/implement` per ticket by hand. It sits as the third sub-bullet, next to upstream's `/implement` and `/implement-spec`: `/orchestrate` takes a parent issue whose sub-issues are genuinely independent, spawns one `/implement` agent per sub-issue on its own worktree, and owns the mechanical tail. It never re-slices the work. This is the payoff of [0001](./0001-native-sub-issue-links-for-specs-and-tickets.md): native sub-issues are what make the packages addressable, so `/orchestrate` needs GitHub, not local files.
 - **`/step-by-step`**, in the off-the-main-flow list, is the human-procedure walkthrough, contrasted with `/wizard`: `/wizard` bottles a procedure into a re-runnable bash script, `/step-by-step` walks you through it once.
 - **`cleanup-merged-branches`** is named in `skills/engineering/implement/SKILL.md` as the reaper that releases abandoned claims. Its behaviour belongs to [0002](./0002-concurrent-implement-sessions.md); it is listed here only because it is the third reference pointing out of this repo.
 
@@ -22,7 +22,7 @@ Each mention is marked **"(installed separately)"**, so a reader who somehow has
 
 | File | Fork edit |
 | --- | --- |
-| `skills/engineering/ask-matt/SKILL.md` | `/orchestrate` in step 3 plus the serial-or-parallel sub-bullet; `/step-by-step` in the off-flow list |
+| `skills/engineering/ask-matt/SKILL.md` | `/orchestrate` as the third sub-bullet in step 3, after upstream's `/implement` and `/implement-spec`; `/step-by-step` in the off-flow list |
 
 Provenance: `776ff6a` (2026-07-30, `/orchestrate`), `2eb4016` (#14, 2026-08-15, `/step-by-step`). Both predate the move to the hub; the skills left in the sync that landed as `origin/main` PR #20, and the routes were kept on purpose.
 

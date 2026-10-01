@@ -1,6 +1,6 @@
 # Fork vocabulary
 
-Extends the top-level [CONTEXT.md](../CONTEXT.md), which is upstream's and stays upstream's. Only terms this fork needs live here.
+Extends the top-level [GLOSSARY.md](../GLOSSARY.md), which is upstream's and stays upstream's. Only terms this fork needs live here.
 
 ## Language
 
