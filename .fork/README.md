@@ -7,7 +7,7 @@ Do **not** put fork material in `.agents/adr/` or extend the top-level `GLOSSARY
 | Path | Holds |
 | --- | --- |
 | `adr/` | Fork ADRs, own numbering, independent of `.agents/adr/` |
-| `CONTEXT.md` | Fork-only vocabulary; upstream's `GLOSSARY.md` stays upstream's |
+| `GLOSSARY.md` | Fork-only vocabulary; upstream's `GLOSSARY.md` stays upstream's |
 
 `check-upstream` itself stays at `.claude/skills/check-upstream/`, where the harness looks for it. `.fork/` is documentation, not code.
 
