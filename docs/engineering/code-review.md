@@ -30,6 +30,8 @@ The Spec axis needs a spec to exist and be findable. It looks in this order:
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch or feature name.
 4. Asking you.
 
+The Standards sub-agent gets none of this: not the spec, not your request, not the reviewing agent's notes on the change. It judges the diff against the standards alone, so the agent that wrote the code cannot talk it out of a finding.
+
 Step 1 depends on `docs/agents/issue-tracker.md`, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes. Without it the axis still works if you hand it a path. With no spec at all, the Spec sub-agent is skipped and the report says "no spec available" rather than inventing requirements.
 
 ## The two axes
@@ -53,7 +55,7 @@ This is the most reported problem with the skill, and it is not fixed. Claude Co
 
 **Its sub-agents keep invoking `/code-review` again and spawn more agents.**
 
-Known open bug, reproduced by several people and in more than one harness. The Standards and Spec prompts do not forbid delegation, so a sub-agent can rediscover the skill and fan out again: one report reached 50-plus agents. The fix people have applied on forks is one line appended to both sub-agent briefs: "Do not invoke `/code-review` or spawn additional agents: perform this review directly." Some prefer to handle it at the harness level so every skill inherits the guard. Neither is in the shipped skill yet. If you run this unattended, watch the agent count.
+Reproduced by several people and in more than one harness: a sub-agent rediscovers the skill and fans out again, and one report reached 50-plus agents. Both sub-agent briefs carry the guard against it: "Do not invoke `/code-review` or spawn more agents: do this review directly." A sub-agent that still fans out is ignoring its brief, so if you run this unattended, watch the agent count.
 
 **Should I run it in the same [session](https://www.aihero.dev/ai-coding-dictionary/session) that wrote the code?**
 
@@ -73,7 +75,7 @@ Because fixes create new surface, and because the judgement-call half of the Sta
 
 **Does it review my uncommitted work?**
 
-No. It diffs `<fixed-point>...HEAD`, three-dot, which is measured from the merge-base and excludes staged and working-tree changes. If `implement` has not made an interim commit, the work about to be committed is invisible to the review. Commit first, then review, then amend or add a fixup.
+Yes. It diffs `git diff --merge-base <fixed-point>`, which runs from the merge-base to the working tree, so committed, staged and unstaged changes to tracked files are all in the review. The one gap is a brand-new file: git leaves an untracked file out of the diff, so `git add` it first.
 
 ## It's working if
 
