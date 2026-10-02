@@ -1,5 +1,15 @@
 # mattpocock-skills
 
+## 1.3.1
+
+### Patch Changes
+
+- [#27](https://github.com/timschoch/mattpocock-skills/pull/27) [`6b27dc3`](https://github.com/timschoch/mattpocock-skills/commit/6b27dc33d2f60f1d75e5f4382088608a3c62b81f) Thanks [@timschoch](https://github.com/timschoch)! - `code-review` reviews work that is not committed yet, and its reviewers stay in their lane.
+
+  - The diff command is `git diff --merge-base <fixed-point>`, so staged and unstaged changes to tracked files are in the review. Stage a new file first: git leaves an untracked file out of the diff.
+  - Both sub-agent briefs forbid invoking `/code-review` again or spawning more agents.
+  - The Standards sub-agent gets the diff and the standards and nothing else, so the agent that wrote the code cannot soften it.
+
 ## 1.3.0
 
 ### Minor Changes
