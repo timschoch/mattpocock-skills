@@ -34,6 +34,7 @@ An ADR exists so a future merge conflict can be resolved on intent rather than o
 - [0003: `Related:` records the edge that does not block](./adr/0003-related-as-a-non-blocking-edge.md)
 - [0004: `/implement` closes the Chrome tabs it opened](./adr/0004-implement-closes-its-chrome-tabs.md)
 - [0005: `ask-matt` routes to skills that live in another repo](./adr/0005-ask-matt-routes-to-skills-from-elsewhere.md)
+- [0006: `code-review` reads the working tree, and its Standards reviewer hears only the standards](./adr/0006-code-review-reads-the-working-tree.md)
 
 ## Infrastructure edits
 
