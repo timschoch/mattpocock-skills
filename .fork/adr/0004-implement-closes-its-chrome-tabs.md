@@ -1,5 +1,7 @@
 # `/implement` closes the Chrome tabs it opened
 
+**Superseded (2026-10-17).** The line left `implement`. Closing the tabs is one user's browser setup, not skill behaviour, so it lives in a skilly rule now. This file stays as the record; it governs no file.
+
 One line added to the end of `skills/engineering/implement/SKILL.md`:
 
 > Close any Chrome tabs you opened during this session before creating the PR.

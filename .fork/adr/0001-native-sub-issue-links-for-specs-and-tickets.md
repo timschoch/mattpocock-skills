@@ -28,13 +28,16 @@ Leaving upstream's sentence untouched is deliberate. If the fork rewrote it, eve
 
 This is the load-bearing half of the ADR, and it has already failed once: the sync in PR #20 dropped the fork's line and left upstream's alone, so the skill told itself to link sub-issues and to not modify the parent in the same breath. Nothing failed loudly. The two-line shape above is the repair.
 
+## Upstream converged
+
+Upstream's `to-tickets` now makes each ticket a sub-issue of its source issue (#554 fixed, 2026-10-06). The fork takes upstream's publish line whole. Two fork edits stay: the carve-out line below upstream's parent rule, which upstream still lacks, and the `to-spec` parent link.
+
 ## Files this governs
 
 | File | Fork edit |
 | --- | --- |
-| `skills/engineering/to-tickets/SKILL.md` | Sub-issue link by default; blocking edges native; body sections demoted to fallback; the parent rule narrowed |
+| `skills/engineering/to-tickets/SKILL.md` | The parent rule narrowed by the carve-out line |
 | `skills/engineering/to-spec/SKILL.md` | Link the spec under its parent when it refines one |
-| `docs/engineering/to-tickets.md` | The "known and unfixed" note rewritten as fixed in this fork |
 | `docs/engineering/to-spec.md` | Prerequisites mention the parent link |
 
 Provenance: `be70efb` (2026-07-07), written against the skills' former names `to-prd` / `to-issues`; carried through upstream's rename in `386d4ff` and reconciled inside merge `18059c0`. Recorded here after the fact, because the behaviour existed for weeks with no stated reason anywhere, which is what this directory exists to prevent.

@@ -32,9 +32,10 @@ An ADR exists so a future merge conflict can be resolved on intent rather than o
 - [0001: Specs and tickets link to their parent as native sub-issues](./adr/0001-native-sub-issue-links-for-specs-and-tickets.md)
 - [0002: `/implement` runs concurrently: its own worktree, and `in-progress` as the claim](./adr/0002-concurrent-implement-sessions.md)
 - [0003: `Related:` records the edge that does not block](./adr/0003-related-as-a-non-blocking-edge.md)
-- [0004: `/implement` closes the Chrome tabs it opened](./adr/0004-implement-closes-its-chrome-tabs.md)
+- [0004: `/implement` closes the Chrome tabs it opened](./adr/0004-implement-closes-its-chrome-tabs.md) (superseded)
 - [0005: `ask-matt` routes to skills that live in another repo](./adr/0005-ask-matt-routes-to-skills-from-elsewhere.md)
-- [0006: `code-review` reads the working tree, and its Standards reviewer hears only the standards](./adr/0006-code-review-reads-the-working-tree.md)
+- [0006: `code-review` reviewers stay in their lane, and `implement` commits before it reviews](./adr/0006-code-review-reviewers-stay-in-their-lane.md)
+- [0007: Tickets carry a finish line, and blocking review findings are checked](./adr/0007-finish-line-and-checked-findings.md)
 
 ## Infrastructure edits
 
