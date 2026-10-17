@@ -26,12 +26,14 @@ Isolation stops agents from corrupting each other. It does not stop two agents f
 
 The assignee alone is not enough once `/implement` is in the picture. An assignee says *a human owns this*; `in-progress` says *an agent is writing code against this right now*. They are different states with different recovery, and one signal cannot carry both. Sharing the label across both skills means one query answers "what is being worked on" regardless of which skill claimed it.
 
+Upstream's `wayfinder` says `wayfinder:` labels are the only labels a map and its tickets carry. That rule keeps triage labels like `ready-for-agent` off decision tickets. `in-progress` is a claim, not a triage label, so the fork adds one line after upstream's rule naming the exception. Upstream's sentence stays byte-identical.
+
 ## Files this governs
 
 | File | Fork edit |
 | --- | --- |
 | `skills/engineering/implement/SKILL.md` | Opening line adds the worktree; "Claim the issue first" and "Release the claim" sections added whole |
-| `skills/engineering/wayfinder/SKILL.md` | Steps 2 and 4 of the loop add and remove `in-progress` |
+| `skills/engineering/wayfinder/SKILL.md` | Steps 2 and 4 of the loop add and remove `in-progress`; one line after the label rule names `in-progress` as the one non-`wayfinder:` label |
 
 Provenance: `97288ac` (2026-07-06, worktree), `7603ea5` (2026-07-07, claim/release), refined in `8ca5928` (#1) and `c40f14a` (#2), and `d8e73eb` (#9, 2026-07-09) for `/wayfinder`.
 
