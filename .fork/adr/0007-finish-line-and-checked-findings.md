@@ -15,7 +15,7 @@ Why: this fork runs tickets with agents that work alone (`/implement`, `/orchest
 
 Before it presents the reports, the skill opens the cited file and line of every **blocking** finding and confirms the finding. A finding it cannot confirm is marked **unconfirmed**, with where it looked. Each finding gives file and line, and a blocking one says how to show it fails. Blocking findings come first within each axis.
 
-Why: sub-agent output is a hypothesis. A wrong blocking finding costs a fix round on code that was fine. skilly's sign-off rule sends blocking findings to a fresh fix agent with no second review, so a false one is acted on with nobody checking it. Only blocking findings are checked: they are the ones that trigger work.
+Why: sub-agent output is a hypothesis. A wrong blocking finding costs a fix round on code that was fine. skilly's done rule (`workflow-done.md`) sends blocking findings to a fresh fix agent with no second review, so a false one is acted on with nobody checking it. Only blocking findings are checked: they are the ones that trigger work.
 
 ## Files this governs
 

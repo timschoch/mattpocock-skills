@@ -25,7 +25,7 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
 
 3. **Gate.** Show the verdicts, the conflict list, and the recommendation, then ask for explicit go. Merge only on a clear yes.
 
-4. **Merge.** Branch off the fork's default branch (`git switch -c sync/upstream-$(date +%Y-%m-%d) main`) so whatever branch you were working on stays out of the sync PR. Record that base's sha (`git rev-parse main`); step 6 needs it. Then `git merge upstream/main`.
+4. **Merge.** Branch off the fork's default branch (`git switch -c chore/sync-upstream-$(date +%Y-%m-%d) main`; skilly's branch hook takes only `<type>/<description>` names) so whatever branch you were working on stays out of the sync PR. Record that base's sha (`git rev-parse main`); step 6 needs it. Then `git merge upstream/main`.
 
 5. **Resolve.** Every conflict falls into one class:
 
@@ -48,4 +48,4 @@ Steps 1–3 are read-only. Nothing merges before a clear yes.
 
    The sync branch carries these scripts, since it branches off the default branch. While this skill still sits on an unmerged branch, extract them first (`git archive <branch> .claude/skills/check-upstream | tar -x -C .temp/`) and run that copy.
 
-7. **PR.** `gh pr create --repo <fork> --base <default branch>`. Name the fork explicitly: on a fork, `gh` aims at the upstream parent by default, which fails as `does not have the correct permissions to execute CreatePullRequest`. Body: the merged range, each resolution you made, and whatever still needs the user's eye. Report the URL.
+7. **PR.** `gh pr create --repo <fork> --base <default branch>`. Name the fork explicitly: on a fork, `gh` aims at the upstream parent by default, which fails as `does not have the correct permissions to execute CreatePullRequest`. Title: `chore: merge upstream/main (<short sha>)`. Body: the merged range, each resolution you made, and whatever still needs the user's eye. Report the URL. Merge it with a merge commit, never a squash: a squash drops upstream's commits from the fork's history, and the next sync conflicts on them again.

@@ -8,7 +8,7 @@ Three fork edits:
 
 ## Why the briefs forbid more reviews
 
-A sub-agent that finds the skill can start its own review and fan out. Upstream's docs page reports a run that reached 50-plus agents. In this fork the risk is higher: a reviewer reads the same sign-off rule that started the review.
+A sub-agent that finds the skill can start its own review and fan out. Upstream's docs page reports a run that reached 50-plus agents. In this fork the risk is higher: a reviewer reads the same done rule (skilly's `workflow-done.md`) that started the review.
 
 Upstream rejects this guard on purpose (`.out-of-scope/subagent-recursion.md`): loops are the harness's job. The fork keeps it anyway. The harnesses this fork runs in do not stop the fan-out, and this fork has hit it in real sessions. One sentence per brief is cheaper than one runaway review.
 
@@ -22,7 +22,7 @@ In this fork's setup the coding agent does not carry the detailed coding guideli
 
 `code-review` diffs `<fixed-point>...HEAD`, which holds committed work only. Upstream's `implement` calls the review before its commit, so unless an interim commit exists the review reads an empty diff. Upstream's own docs page says "Commit first, then review". The fork puts the two lines in that order.
 
-skilly's sign-off rule matches: the review runs on committed work. An earlier fork edit made `code-review` read the working tree instead, for a sign-off rule where staged meant done. That rule moved to committed work, so the fork takes upstream's diff command.
+skilly's done rule (`workflow-done.md`) matches: the review runs on committed work. An earlier fork edit made `code-review` read the working tree instead, for a skilly rule where staged meant done. skilly now treats committed work as done, so the fork takes upstream's diff command.
 
 ## Files this governs
 
